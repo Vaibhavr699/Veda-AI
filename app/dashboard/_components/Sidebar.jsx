@@ -48,15 +48,15 @@ function Sidebar() {
           {MenuList.map((menu, index) => {
             const Icon = menu.icon;
             return (
+              <Link href={menu.path} key={index}>
                 <div
-                key={index}
-                className={`flex items-center gap-5 mt-3 p-3 rounded-lg cursor-pointer 
-                  hover:bg-slate-200 ${path === menu.path ? 'bg-slate-200' : ''}`}
-              >
-              
-                <Icon size={20} />
-                <span className="text-md font-medium">{menu.name}</span>
-              </div>
+                  className={`flex items-center gap-5 mt-3 p-3 rounded-lg cursor-pointer 
+                    hover:bg-slate-200 ${path === menu.path ? 'bg-slate-200' : ''}`}
+                >
+                  <Icon size={20} />
+                  <span className="text-md font-medium">{menu.name}</span>
+                </div>
+              </Link>
             );
           })}
         </div>

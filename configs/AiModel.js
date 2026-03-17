@@ -2,7 +2,10 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const OpenAI = require("openai");
 
 // Set your Gemini API key here
-const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || 'AIzaSyBbcFY0HKSS3CjUk50lnbhhlAul2zRucQ4';
+const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+if (!apiKey) {
+  throw new Error("❌ NEXT_PUBLIC_GEMINI_API_KEY is missing in .env file");
+}
 const genAI = new GoogleGenerativeAI(apiKey);
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -13,7 +16,7 @@ export { openai };
 
 // Get the model
 const model = genAI.getGenerativeModel({
-  model: "gemini-2.5-pro-preview-03-25",
+  model: "gemini-1.5-flash",
 });
 
 

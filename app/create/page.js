@@ -36,7 +36,7 @@ function Create() {
 
       <div className='mt-10'>
         {step === 0 ? (
-          <SelectOption selectedStudyType={(value) => handleUserInput('studyType', value)} />
+          <SelectOption selectedStudyType={(value) => handleUserInput('courseType', value)} />
         ) : (
           <TopicInput
             setTopic={(value) => handleUserInput('topic', value)}
