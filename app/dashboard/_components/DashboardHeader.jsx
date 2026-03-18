@@ -6,7 +6,7 @@ function DashboardHeader() {
   return (
     <div className="p-5 shadow-md flex justify-end">
       <div className="scale-110">
-        <UserButton />
+        <UserButton afterSignOutUrl="/" />
       </div>
     </div>
   );

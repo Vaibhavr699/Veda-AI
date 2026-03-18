@@ -1,4 +1,4 @@
-import { courseOutlineAIModel } from "@/configs/AiModel";
+import { courseOutlineAIModel, openai } from "@/configs/AiModel";
 import { NextResponse } from "next/server";
 import { db } from "@/configs/db";
 import { STUDY_MATERIAL_TABLE } from "@/configs/schema";
@@ -11,21 +11,37 @@ export async function POST(req) {
     // Log input
     console.log("Received Data:", { courseID, topic, courseType, difficulty, createdBy });
 
-    const PROMPT = `Generate a course outline for the following topic: ${topic}, course type: ${courseType}, difficulty: ${difficulty}, created by: ${createdBy}`;
+    const PROMPT = `Generate a course outline for the following topic: ${topic}, course type: ${courseType}, difficulty: ${difficulty}, created by: ${createdBy}. 
+    Return a JSON object with the following structure:
+    {
+      "course": {
+        "title": "Course Title",
+        "chapters": [
+          {
+            "title": "Chapter 1 Title",
+            "summary": "Brief summary of what this chapter covers."
+          }
+        ]
+      }
+    }`;
     
-    const aiResp = await courseOutlineAIModel.sendMessage(PROMPT);
-
-    // Log AI raw output
-    const rawText = aiResp?.response?.text();
-    console.log("Raw AI Response:", rawText);
-
-    // Parse AI response
     let aiResult;
-    try {
+    if (process.env.OPENAI_API_KEY) {
+      console.log("Using OpenAI for course outline generation...");
+      const completion = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [{ role: "user", content: PROMPT }],
+        response_format: { type: "json_object" }
+      });
+      const rawText = completion.choices[0].message.content;
+      console.log("Raw OpenAI Response:", rawText);
       aiResult = JSON.parse(rawText);
-    } catch (jsonErr) {
-      console.error("JSON Parse Error:", rawText);
-      throw new Error("❌ AI response is not valid JSON");
+    } else {
+      console.log("Using Gemini for course outline generation...");
+      const aiResp = await courseOutlineAIModel.sendMessage(PROMPT);
+      const rawText = aiResp?.response?.text();
+      console.log("Raw Gemini Response:", rawText);
+      aiResult = JSON.parse(rawText);
     }
 
     // Insert into DB
