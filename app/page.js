@@ -3,9 +3,53 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/ui/hero-section-9";
-import { MoveRight, Sparkles, BookOpen, BrainCircuit, Rocket, CheckCircle2, Users, Briefcase, GraduationCap } from "lucide-react";
-import { motion } from "framer-motion";
+import { Footerdemo } from "@/components/ui/footer-section";
+import { CreativePricing } from "@/components/ui/creative-pricing";
+import { Sparkles, BookOpen, BrainCircuit, Users, Briefcase, GraduationCap, Pencil, Star, ArrowRight, CheckCircle2, CopyPlus, Target, Plus, MessagesSquare } from "lucide-react";
 import { useRouter } from "next/navigation";
+
+const PRICING_TIERS = [
+  {
+    name: "Student",
+    icon: <Pencil className="w-6 h-6" />,
+    iconColor: "text-blue-500",
+    price: 0,
+    description: "Free forever for casual learners",
+    features: [
+      "3 AI Courses / month",
+      "Basic Chapter Notes",
+      "Community Support",
+      "PDF Exports",
+    ],
+  },
+  {
+    name: "Pro Learner",
+    icon: <Star className="w-6 h-6" />,
+    iconColor: "text-amber-500",
+    price: 9.99,
+    description: "For dedicated students",
+    features: [
+      "Unlimited AI Courses",
+      "Advanced Analytics",
+      "Smart Study Paths",
+      "Priority AI Processing",
+    ],
+    popular: true,
+  },
+  {
+    name: "Institution",
+    icon: <Sparkles className="w-6 h-6" />,
+    iconColor: "text-purple-500",
+    price: 49.99,
+    description: "For teams & classrooms",
+    features: [
+      "Everything in Pro",
+      "Team Collaboration",
+      "Admin Dashboard",
+      "Custom AI Models",
+    ],
+  },
+];
 
 export default function Home() {
   const router = useRouter();
@@ -14,18 +58,18 @@ export default function Home() {
     title: (
       <>
         Master Any Subject with <br />
-        <span className="bg-gradient-to-r from-primary via-sky-600 to-indigo-600 bg-clip-text text-transparent italic drop-shadow-sm">
+        <span className="bg-gradient-to-r from-blue-500 via-sky-600 to-indigo-600 bg-clip-text text-transparent italic drop-shadow-sm">
           AI Precision
         </span>
       </>
     ),
-    subtitle: 'Veda AI is your personalized study partner, generating structured courses and smart materials from the world’s most advanced AI models.',
+    subtitle: 'Veda AI is your personalized study partner, generating structured courses and smart materials from the world\'s most advanced AI models.',
     actions: [
       {
         text: 'Unlock Your Path',
         onClick: () => router.push('/dashboard'),
         variant: 'default',
-        className: 'bg-primary hover:bg-primary/95 shadow-[0_20px_50px_rgba(8,_112,_184,_0.3)] hover:scale-[1.03] transition-all rounded-2xl gap-3 h-16 px-10 text-xl font-bold font-bold'
+        className: 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-100 shadow-[4px_4px_0px_0px] shadow-neutral-900 dark:shadow-neutral-400 border-2 border-neutral-900 dark:border-neutral-300 hover:shadow-[6px_6px_0px_0px] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all rounded-xl gap-3 h-14 px-10 text-xl'
       },
       {
         text: 'See the Magic',
@@ -34,7 +78,7 @@ export default function Home() {
           element?.scrollIntoView({ behavior: 'smooth' });
         },
         variant: 'outline',
-        className: 'h-16 px-10 text-xl font-bold rounded-2xl border-2 hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all font-bold'
+        className: 'h-14 px-10 text-xl rounded-xl border-2 border-neutral-900 dark:border-neutral-300 shadow-[4px_4px_0px_0px] shadow-neutral-900 dark:shadow-neutral-400 hover:shadow-[6px_6px_0px_0px] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all'
       },
     ],
     stats: [
@@ -62,13 +106,13 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-black selection:bg-primary/20">
-      {/* Floating Navbar */}
-      <Navbar className="top-10" />
+    <div className="min-h-screen bg-neutral-50 dark:bg-black selection:bg-blue-500/20">
+      {/* Navbar */}
+      <Navbar />
       
       <main className="overflow-hidden">
-        {/* Modern Premium Hero Section Component */}
-        <div className="pt-24 lg:pt-32 bg-neutral-50 dark:bg-black">
+        {/* Hero Section */}
+        <div className="bg-white dark:bg-black">
           <HeroSection
             title={heroData.title}
             subtitle={heroData.subtitle}
@@ -79,93 +123,159 @@ export default function Home() {
           />
         </div>
 
-        {/* Improved Feature Cards Section */}
-        <section id="features" className="py-32 relative bg-white dark:bg-[#050505]">
+        {/* Feature Cards Section */}
+        <section id="features" className="py-22 relative bg-white dark:bg-[#050505]">
           <div className="container mx-auto px-4">
             <div className="max-w-xl mb-24">
-               <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight leading-tight">Fast-track your <span className="text-primary italic">Success</span> with AI tools</h2>
-               <p className="text-lg text-neutral-500 dark:text-neutral-400">Everything we build is designed to make learning effortless, smart and scientific.</p>
+               <div className="text-xl text-blue-500 rotate-[-1deg] mb-3">Why Veda AI?</div>
+               <div className="relative">
+                 <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight leading-tight text-neutral-900 dark:text-white rotate-[-1deg]">
+                   Fast-track your <span className="text-blue-500 italic">Success</span> with AI tools
+                   <div className="absolute -right-10 top-0 text-amber-500 rotate-12">✨</div>
+                 </h2>
+                 <div className="absolute -bottom-2 left-0 w-36 h-3 bg-blue-500/20 rotate-[-1deg] rounded-full blur-sm" />
+               </div>
+               <p className="text-lg text-neutral-500 dark:text-neutral-400 rotate-[-1deg]">Everything we build is designed to make learning effortless, smart and scientific.</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-10">
+            <div className="grid md:grid-cols-3 gap-8">
               {[
                 {
-                  icon: <BrainCircuit className="w-10 h-10 text-primary" />,
+                  icon: <BrainCircuit className="w-8 h-8" />,
+                  iconColor: "text-blue-500",
                   title: "Neuro-Generated Courses",
                   desc: "Veda AI doesn't just list topics; it understands your gaps and generates structured lessons that click."
                 },
                 {
-                  icon: <BookOpen className="w-10 h-10 text-blue-500" />,
+                  icon: <BookOpen className="w-8 h-8" />,
+                  iconColor: "text-amber-500",
                   title: "Semantic Chapter Notes",
                   desc: "Forget long paragraphs. Our AI distills wisdom into interactive summaries and deep-dives for every concept."
                 },
                 {
-                  icon: <Sparkles className="w-10 h-10 text-purple-600" />,
+                  icon: <Sparkles className="w-8 h-8" />,
+                  iconColor: "text-purple-500",
                   title: "Learning Intelligence",
                   desc: "The more you study, the smarter your Veda becomes, tailoring difficulty and pace to your exact level."
                 }
               ].map((f, i) => (
-                <div key={i} className="group p-10 rounded-[2rem] border bg-neutral-50 dark:bg-neutral-900/50 hover:bg-white dark:hover:bg-neutral-900 transition-all hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-2">
-                  <div className="mb-6 p-4 bg-white dark:bg-neutral-800 rounded-2xl border shadow-sm w-fit group-hover:scale-110 transition-transform">
-                    {f.icon}
+                <div
+                  key={i}
+                  className={`relative group transition-all duration-300 cursor-pointer ${
+                    i === 0 ? "rotate-[-1deg]" : i === 1 ? "rotate-[1deg]" : "rotate-[-2deg]"
+                  }`}
+                >
+                  <div className="absolute inset-0 bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-300 rounded-lg shadow-[4px_4px_0px_0px] shadow-neutral-900 dark:shadow-neutral-400 transition-all duration-300 group-hover:shadow-[8px_8px_0px_0px] group-hover:translate-x-[-4px] group-hover:translate-y-[-4px]" />
+                  <div className="relative p-8">
+                    <div className={`w-12 h-12 rounded-full mb-5 flex items-center justify-center border-2 border-neutral-900 dark:border-neutral-300 ${f.iconColor}`}>
+                      {f.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold mb-3 text-neutral-900 dark:text-white">{f.title}</h3>
+                    <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                      {f.desc}
+                    </p>
                   </div>
-                  <h3 className="text-2xl font-bold mb-4">{f.title}</h3>
-                  <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed group-hover:dark:text-neutral-300 transition-colors">
-                    {f.desc}
-                  </p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="pricing" className="py-32 bg-neutral-50 dark:bg-black">
-             <div className="container mx-auto px-4 text-center">
-                <h2 className="text-4xl font-black mb-4 text-neutral-900 dark:text-neutral-50">Transparent Pricing</h2>
-                <p className="text-neutral-500 mb-16">Simple plans for serious learners.</p>
-                
-                <div className="max-w-lg mx-auto p-12 rounded-[3rem] border-4 border-primary/20 bg-background shadow-[0_30px_70px_rgba(0,0,0,0.1)] relative overflow-hidden group">
-                     {/* Bestseller Badge */}
-                     <div className="absolute top-6 right-6 px-4 py-1.5 bg-primary text-white text-xs font-black uppercase tracking-widest rounded-full">Pro Choice</div>
-                     
-                     <h3 className="text-2xl font-bold mb-4">Standard Plan</h3>
-                     <div className="flex items-baseline justify-center gap-1 mb-2">
-                        <span className="text-6xl font-black tracking-tighter text-neutral-900 dark:text-neutral-50">$9.99</span>
-                        <span className="text-neutral-400 font-bold">/mo</span>
-                     </div>
-                     <p className="text-neutral-500 mb-8 italic text-sm">Cancel anytime, no questions asked.</p>
-                     
-                     <ul className="space-y-5 mb-10 text-left">
-                        {["Unlimited AI Courses", "Advanced Analytics", "PDF & Markdown Exports", "Global Knowledge Sync", "24/7 AI Tutor Support"].map((item) => (
-                            <li key={item} className="flex items-center gap-3 font-semibold text-neutral-700 dark:text-neutral-300">
-                                <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
-                                {item}
-                            </li>
-                        ))}
-                     </ul>
-                     
-                     <Button className="w-full h-14 rounded-2xl text-lg font-bold group-hover:scale-[1.02] transition-transform">Coming Soon</Button>
+        {/* How It Works Section */}
+        <section id="how-it-works" className="py-24 bg-neutral-100 dark:bg-neutral-950 border-y-2 border-neutral-900 dark:border-neutral-800">
+          <div className="container mx-auto px-4">
+            <div className="text-center max-w-2xl mx-auto mb-20 mt-8">
+              <div className="text-xl text-blue-500 rotate-[-1deg] mb-3">Simple Process</div>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white rotate-[1deg]">
+                How Veda AI <span className="text-blue-500 italic">Works</span>
+              </h2>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8 relative max-w-5xl mx-auto">
+              <div className="hidden md:block absolute top-[25%] left-[15%] w-[70%] h-1 border-t-4 border-dashed border-neutral-300 dark:border-neutral-700 -z-10" />
+              {[
+                { step: "01", title: "Enter Your Topic", desc: "Type in any subject, syllabus, or upload your existing class materials.", icon: <CopyPlus className="w-8 h-8 text-blue-500" /> },
+                { step: "02", title: "AI Analyzes & Crafts", desc: "Our advanced models build a structured, comprehensive course in seconds.", icon: <BrainCircuit className="w-8 h-8 text-amber-500" /> },
+                { step: "03", title: "Master the Content", desc: "Learn via semantic notes, take quizzes, and track your retention globally.", icon: <Target className="w-8 h-8 text-purple-500" /> },
+              ].map((item, i) => (
+                <div key={i} className="relative group flex flex-col items-center text-center cursor-pointer">
+                  <div className="w-20 h-20 mb-6 bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-300 rounded-2xl flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] group-hover:-translate-y-2 transition-transform duration-300 relative z-10">
+                    <span className="absolute -top-3 -right-3 w-8 h-8 bg-black dark:bg-white text-white dark:text-black font-bold rounded-full border-2 border-neutral-900 dark:border-neutral-300 flex items-center justify-center shadow-sm">
+                      {item.step}
+                    </span>
+                    {item.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3 text-neutral-900 dark:text-white">{item.title}</h3>
+                  <p className="text-lg text-neutral-600 dark:text-neutral-400">{item.desc}</p>
                 </div>
-             </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Creative Pricing Section */}
+        <section id="pricing" className="py-30 bg-neutral-50 dark:bg-black relative">
+          <CreativePricing
+            tag="Transparent Pricing"
+            title="Choose Your Learning Journey"
+            description="Simple plans for serious learners — cancel anytime"
+            tiers={PRICING_TIERS}
+          />
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-32 bg-white dark:bg-[#050505]">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <div className="text-center mb-16">
+              <div className="text-xl text-amber-500 rotate-[1deg] mb-3">Got Questions?</div>
+              <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white rotate-[-1deg]">
+                Frequently Asked <span className="text-amber-500 italic">Questions</span>
+              </h2>
+            </div>
+            
+            <div className="space-y-6">
+              {[
+                { q: "Is Veda AI really free for students?", a: "Yes! Our Student tier is 100% free and gives you access to 3 full AI-generated courses per month, making it perfect for casual learners." },
+                { q: "Can I upload my own PDF syllabus?", a: "Absolutely. Pro Learners and Institutions can upload PDFs, Word docs, and PowerPoints, and the AI will extract the structure and generate learning modules." },
+                { q: "What models generate the courses?", a: "We use a proprietary mix of the latest foundational models (including GPT-4o and Claude 3.5 Sonnet) specifically fine-tuned for educational pedagogy." },
+                { q: "How do I cancel my Pro subscription?", a: "You can cancel anytime from your dashboard billing settings with a single click. No forced phone calls or hidden menus." },
+              ].map((faq, i) => (
+                <div key={i} className="bg-neutral-50 dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-700 rounded-xl p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                  <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 flex items-center gap-3">
+                    <MessagesSquare className="w-6 h-6 text-blue-500 shrink-0" />
+                    {faq.q}
+                  </h3>
+                  <p className="text-lg text-neutral-600 dark:text-neutral-400 pl-9">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action Banner */}
+        <section className="py-24 bg-blue-600">
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-4xl mx-auto bg-white dark:bg-black rounded-[2rem] border-4 border-neutral-900 dark:border-neutral-300 p-12 md:p-16 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.3)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.3)] relative group">
+              <div className="absolute -top-6 -right-6 text-6xl rotate-12 transition-transform duration-500 group-hover:rotate-45">✨</div>
+              <h2 className="text-4xl md:text-5xl font-black mb-6 text-neutral-900 dark:text-white">Ready to ace your next exam?</h2>
+              <p className="text-xl text-neutral-600 dark:text-neutral-400 mb-10 max-w-2xl mx-auto">
+                Join over 25,000 students who have switched to smarter, AI-driven studying.
+              </p>
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Button className="h-16 px-10 rounded-xl text-xl font-bold bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 border-2 border-neutral-900 dark:border-neutral-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-[6px_6px_0px_0px] hover:-translate-y-1 hover:-translate-x-1 transition-all group/btn">
+                  Sign up free
+                  <ArrowRight className="w-6 h-6 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                </Button>
+                <Button variant="outline" className="h-16 px-10 rounded-xl text-xl font-bold border-2 border-neutral-900 dark:border-neutral-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-[6px_6px_0px_0px] hover:-translate-y-1 hover:-translate-x-1 hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all text-neutral-900 dark:text-white">
+                  View pricing
+                </Button>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
 
-      <footer className="py-20 border-t dark:border-white/5 mt-20 bg-white dark:bg-black">
-        <div className="container mx-auto px-4 text-center text-neutral-400">
-            <div className="flex items-center justify-center gap-2 mb-8">
-                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-black text-2xl">V</div>
-                <span className="text-2xl font-black text-neutral-900 dark:text-white">Veda AI</span>
-            </div>
-            <p className="max-w-md mx-auto mb-10 text-lg leading-relaxed">Pioneering the future of education with empathetic AI agents and personalized systems.</p>
-            <div className="flex justify-center gap-12 font-bold text-neutral-900 dark:text-white mb-10">
-                <Link href="#" className="hover:text-primary transition-colors">Privacy</Link>
-                <Link href="#" className="hover:text-primary transition-colors">Terms</Link>
-                <Link href="#" className="hover:text-primary transition-colors">Twitter</Link>
-                <Link href="#" className="hover:text-primary transition-colors">Discord</Link>
-            </div>
-            <p className="text-sm font-semibold opacity-50 italic">© 2026 Veda AI Technologies Inc. Crafting wisdom, one byte at a time.</p>
-        </div>
-      </footer>
+      <Footerdemo />
     </div>
   );
 }

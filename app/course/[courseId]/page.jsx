@@ -5,7 +5,7 @@ import axios from 'axios'
 import ChapterList from './_components/ChapterList'
 import NotesContent from './_components/NotesContent'
 import { Button } from '@/components/ui/button'
-import { ChevronLeft, LayoutDashboard } from 'lucide-react'
+import { ChevronLeft, LayoutDashboard, ClipboardList } from 'lucide-react'
 import Link from 'next/link'
 
 function CourseView() {
@@ -52,6 +52,14 @@ function CourseView() {
           setSelectedChapter={(v) => setSelectedChapter(v)}
           courseStatus={course?.status}
         />
+        <div className='p-4 mt-auto border-t'>
+            <Link href={`/course/${courseId}/quiz?topic=${encodeURIComponent(course?.topic || '')}`}>
+              <Button className="w-full h-11 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-bold text-sm rounded-lg border-2 border-neutral-900 dark:border-neutral-300 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:shadow-[4px_4px_0px_0px] hover:-translate-y-[1px] hover:-translate-x-[1px] transition-all flex items-center justify-center gap-2">
+                 <ClipboardList className='w-4 h-4' />
+                 Take Practice Test
+              </Button>
+            </Link>
+        </div>
       </div>
 
       {/* Main Content - Chapter Notes */}

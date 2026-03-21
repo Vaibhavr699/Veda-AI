@@ -1,5 +1,5 @@
 import { boolean } from "drizzle-orm/gel-core";
-import { pgTable, text, varchar, serial, json } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, serial, json, integer } from "drizzle-orm/pg-core";
 
 
 export const USER_TABLE = pgTable("users", {
@@ -26,4 +26,22 @@ export const CHAPTER_NOTES_TABLE = pgTable("chapters_notes", {
   chapterId: serial().notNull(),
   notes: text().notNull()
 });
+export const EXAMS_CONTENT_TABLE = pgTable("exams_content", {
+  id: serial().primaryKey(),
+  courseId: varchar({ length: 255 }).notNull(),
+  examType: varchar({ length: 255 }).notNull(), // 'quiz', 'interview', 'project'
+  content: json(),     // JSON containing questions, options, correct answers
+  status: varchar().default('Generating...')
+});
 
+export const TEST_RESULTS_TABLE = pgTable("test_results", {
+  id: serial().primaryKey(),
+  courseId: varchar({ length: 255 }).notNull(),
+  examType: varchar({ length: 255 }).notNull(), // 'quiz', 'interview'
+  score: integer(),              // E.g. 8
+  totalQuestions: integer(),     // E.g. 10
+  feedback: text(),              // Tips for improvement
+  userAnswers: json(),           // Their choices
+  userEmail: varchar({ length: 255 }).notNull(),
+  createdAt: varchar({ length: 255 }).notNull()
+});

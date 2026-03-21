@@ -1,17 +1,15 @@
 import React from 'react'
-import DashboardHeader from './_components/DashboardHeader'
 import Sidebar from './_components/Sidebar'
 
 function DashboardLayout({children}){
   return (
-    <div>
-        <div className='md:w-64 hidden md:block fixed'>
+    <div className="min-h-screen bg-neutral-50 dark:bg-black">
+        <div className='md:w-64 hidden md:block fixed h-full'>
             <Sidebar />
         </div>
         <div className='md:ml-64'>
-            <DashboardHeader/>
-            <div className='p-10'>
-            {children}
+            <div className='p-6 md:p-10 max-w-7xl mx-auto'>
+                {children}
             </div>
         </div>
     </div>
