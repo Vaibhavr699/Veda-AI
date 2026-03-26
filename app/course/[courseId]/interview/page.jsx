@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useSearchParams } from 'next/navigation'
 import axios from 'axios'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Loader2, Sparkles } from 'lucide-react'
+import { ArrowLeft, Loader2, Sparkles, Lightbulb } from 'lucide-react'
 import Link from 'next/link'
 
 function InterviewPage() {
@@ -43,6 +43,14 @@ function InterviewPage() {
             [index]: !prev[index]
         }))
     }
+
+    const colorGradients = [
+        'from-blue-600 to-indigo-700',
+        'from-emerald-500 to-teal-700',
+        'from-violet-600 to-purple-800',
+        'from-pink-500 to-rose-700',
+        'from-amber-500 to-orange-700'
+    ]
 
     if (loading) {
         return (
@@ -90,28 +98,48 @@ function InterviewPage() {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                     {interviewData.questions.map((q, idx) => {
                         const isFlipped = flippedCards[idx];
+                        const gradient = colorGradients[idx % colorGradients.length];
 
                         return (
                             <div 
                                 key={idx} 
                                 onClick={() => toggleCard(idx)}
-                                className="group relative h-80 w-full cursor-pointer perspective-1000"
+                                className="group relative h-80 w-full cursor-pointer"
+                                style={{ perspective: '1000px' }}
                             >
-                                <div className={`relative w-full h-full transition-transform duration-700 preserve-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
-                                    
+                                <div 
+                                    className="relative w-full h-full transition-transform duration-700 ease-in-out"
+                                    style={{ 
+                                        transformStyle: 'preserve-3d',
+                                        transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
+                                    }}
+                                >
                                     {/* Front of Card (Question) */}
-                                    <div className="absolute w-full h-full backface-hidden bg-white dark:bg-[#111] border-2 border-neutral-900 dark:border-neutral-300 rounded-2xl p-8 flex flex-col justify-center text-center shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] group-hover:-translate-y-1 group-hover:-translate-x-1 group-hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all">
-                                        <div className='absolute top-4 left-4 w-10 h-10 bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 rounded-full flex items-center justify-center font-black text-lg border-2 border-blue-200 dark:border-blue-700'>
+                                    <div 
+                                        className="absolute w-full h-full bg-white dark:bg-[#111] border-2 border-neutral-900 dark:border-neutral-300 rounded-2xl p-8 flex flex-col justify-center text-center shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] group-hover:-translate-y-1 group-hover:-translate-x-1 group-hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all duration-300"
+                                        style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                                    >
+                                        <div className='absolute top-4 left-4 w-10 h-10 bg-neutral-100 dark:bg-neutral-800 rounded-full flex items-center justify-center font-black text-lg border-2 border-neutral-900 dark:border-neutral-500'>
                                             {idx + 1}
                                         </div>
                                         <h3 className="text-xl md:text-2xl font-black text-neutral-900 dark:text-white mt-4">{q.question}</h3>
-                                        <p className="absolute bottom-6 left-0 right-0 text-xs font-bold text-neutral-400 uppercase tracking-widest">Click to reveal answer</p>
+                                        <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center text-xs font-bold text-neutral-400 uppercase tracking-widest gap-2">
+                                            <Lightbulb className="w-4 h-4" />
+                                            <span>Click to reveal answer</span>
+                                        </div>
                                     </div>
 
                                     {/* Back of Card (Answer) */}
-                                    <div className="absolute w-full h-full backface-hidden rotate-y-180 bg-neutral-900 dark:bg-neutral-800 text-white border-2 border-neutral-900 dark:border-neutral-300 rounded-2xl p-6 md:p-8 flex flex-col items-center justify-center text-center shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)]">
-                                        <h4 className="text-sm font-bold text-blue-400 mb-2 uppercase tracking-wider">Expert Answer</h4>
-                                        <p className="text-sm md:text-base leading-relaxed overflow-y-auto max-h-[200px] pr-2 custom-scrollbar">
+                                    <div 
+                                        className={`absolute w-full h-full bg-gradient-to-br ${gradient} text-white border-2 border-neutral-900 dark:border-neutral-300 rounded-2xl p-6 md:p-8 flex flex-col items-center justify-center text-center shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)]`}
+                                        style={{ 
+                                            backfaceVisibility: 'hidden', 
+                                            WebkitBackfaceVisibility: 'hidden',
+                                            transform: 'rotateY(180deg)'
+                                        }}
+                                    >
+                                        <h4 className="text-[11px] font-black text-white/70 mb-3 uppercase tracking-widest border-b border-white/20 pb-2 w-full">Expert Answer</h4>
+                                        <p className="text-sm md:text-base leading-relaxed overflow-y-auto max-h-[200px] pr-2 custom-scrollbar font-medium">
                                             {q.answer}
                                         </p>
                                     </div>
@@ -124,28 +152,18 @@ function InterviewPage() {
             </div>
             
             <style jsx global>{`
-                .perspective-1000 {
-                    perspective: 1000px;
-                }
-                .preserve-3d {
-                    transform-style: preserve-3d;
-                }
-                .backface-hidden {
-                    backface-visibility: hidden;
-                    -webkit-backface-visibility: hidden;
-                }
-                .rotate-y-180 {
-                    transform: rotateY(180deg);
-                }
                 .custom-scrollbar::-webkit-scrollbar {
-                    width: 4px;
+                    width: 6px;
                 }
                 .custom-scrollbar::-webkit-scrollbar-track {
                     background: transparent;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background-color: rgba(255, 255, 255, 0.3);
-                    border-radius: 4px;
+                    background-color: rgba(255, 255, 255, 0.4);
+                    border-radius: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background-color: rgba(255, 255, 255, 0.6);
                 }
             `}</style>
         </div>
