@@ -55,12 +55,16 @@ export async function POST(req) {
     }).returning();
 
     // Trigger Inngest to generate chapter notes
-    await inngest.send({
-      name: "notes.generate",
-      data: {
-        course: dbResult[0]
-      }
-    });
+    try {
+      await inngest.send({
+        name: "notes.generate",
+        data: {
+          course: dbResult[0]
+        }
+      });
+    } catch (inngestError) {
+      console.warn("⚠️ Inngest 'notes.generate' event skipped. Ensure you run 'npx inngest-cli@latest dev' to handle background tasks.");
+    }
 
     return NextResponse.json({ outline: dbResult[0] });
 
