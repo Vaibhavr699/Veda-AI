@@ -10,7 +10,7 @@ import { MenuIcon, X } from "lucide-react";
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
   { label: "Pricing", href: "#pricing" },
-  { label: "About Us", href: "#" },
+  { label: "About Us", href: "#about" },
 ];
 
 export default function Navbar({ className }) {

@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/ui/hero-section-9";
 import { Footerdemo } from "@/components/ui/footer-section";
 import { CreativePricing } from "@/components/ui/creative-pricing";
-import { Sparkles, BookOpen, BrainCircuit, Users, Briefcase, GraduationCap, Pencil, Star, ArrowRight, CheckCircle2, CopyPlus, Target, Plus, MessagesSquare } from "lucide-react";
+import { Sparkles, BookOpen, BrainCircuit, Users, Briefcase, GraduationCap, Pencil, Star, ArrowRight, CheckCircle2, CopyPlus, Target, Plus, MessagesSquare, Heart, Globe, Lightbulb, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const PRICING_TIERS = [
@@ -248,6 +248,82 @@ export default function Home() {
                   <p className="text-lg text-neutral-600 dark:text-neutral-400 pl-9">{faq.a}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* About Us Section */}
+        <section id="about" className="py-32 bg-neutral-100 dark:bg-neutral-950 border-y-2 border-neutral-900 dark:border-neutral-800 relative overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/5 blur-3xl rounded-full" />
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-500/5 blur-3xl rounded-full" />
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="text-center max-w-3xl mx-auto mb-20">
+              <div className="text-xl text-blue-500 rotate-[-1deg] mb-3">Who We Are</div>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white rotate-[1deg] mb-6">
+                Built by <span className="text-blue-500 italic">Learners</span>, for Learners
+              </h2>
+              <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                Veda AI was born from a simple frustration — traditional study materials don't adapt to you. We're a passionate team of educators, engineers, and AI researchers on a mission to make world-class learning accessible to everyone, everywhere.
+              </p>
+            </div>
+
+            {/* Values Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-20">
+              {[
+                {
+                  icon: <Heart className="w-7 h-7" />,
+                  iconColor: "text-rose-500",
+                  title: "Student First",
+                  desc: "Every feature we ship is tested against one question: does this actually help a student learn better?"
+                },
+                {
+                  icon: <Lightbulb className="w-7 h-7" />,
+                  iconColor: "text-amber-500",
+                  title: "AI-Native",
+                  desc: "We don't bolt AI onto old tools. Our entire platform is designed ground-up around intelligent, adaptive learning."
+                },
+                {
+                  icon: <Globe className="w-7 h-7" />,
+                  iconColor: "text-emerald-500",
+                  title: "Globally Accessible",
+                  desc: "Quality education shouldn't have borders. Veda AI works for learners in 120+ countries and counting."
+                },
+                {
+                  icon: <Zap className="w-7 h-7" />,
+                  iconColor: "text-purple-500",
+                  title: "Always Evolving",
+                  desc: "We ship weekly. New models, smarter algorithms, and fresh features — we never stop improving."
+                },
+              ].map((value, i) => (
+                <div
+                  key={i}
+                  className={`group relative cursor-pointer transition-all duration-300 ${
+                    i % 2 === 0 ? "rotate-[-1deg]" : "rotate-[1deg]"
+                  }`}
+                >
+                  <div className="absolute inset-0 bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-300 rounded-xl shadow-[4px_4px_0px_0px] shadow-neutral-900 dark:shadow-neutral-400 transition-all duration-300 group-hover:shadow-[6px_6px_0px_0px] group-hover:translate-x-[-2px] group-hover:translate-y-[-2px]" />
+                  <div className="relative p-6">
+                    <div className={`w-12 h-12 rounded-xl mb-4 flex items-center justify-center border-2 border-neutral-900 dark:border-neutral-300 bg-neutral-50 dark:bg-neutral-800 ${value.iconColor}`}>
+                      {value.icon}
+                    </div>
+                    <h3 className="text-lg font-bold mb-2 text-neutral-900 dark:text-white">{value.title}</h3>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                      {value.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Vision Statement */}
+            <div className="max-w-3xl mx-auto text-center">
+              <div className="bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-neutral-300 rounded-2xl p-8 md:p-12 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] rotate-[0.5deg] hover:rotate-0 transition-transform duration-500">
+                <div className="text-4xl mb-4">🎯</div>
+                <h3 className="text-2xl md:text-3xl font-black text-neutral-900 dark:text-white mb-4">Our Vision</h3>
+                <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl mx-auto">
+                  A world where every student has a personal AI tutor that understands their unique way of thinking — making knowledge gaps a thing of the past.
+                </p>
+              </div>
             </div>
           </div>
         </section>
