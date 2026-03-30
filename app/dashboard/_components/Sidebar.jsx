@@ -32,6 +32,16 @@ function Sidebar() {
       icon: UserCircle,
       path: "/dashboard/profile",
     },
+        {
+      name: "Results",
+      icon: ClipboardList,
+      path: "/dashboard/results",
+    },
+    {
+      name: "Profile",
+      icon: UserCircle,
+      path: "/dashboard/profile",
+    },
   ];
 
   const path = usePathname()
