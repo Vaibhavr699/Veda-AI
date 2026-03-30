@@ -8,6 +8,9 @@ const manrope = Manrope({ subsets: ["latin"] });
 export const metadata = {
   title: "Veda AI",
   description: "Veda AI — Your Personalized AI-Powered Learning Path.",
+  icons: {
+    icon: "/favicon1.png",
+  },
 };
 
 export default function RootLayout({ children }) {
