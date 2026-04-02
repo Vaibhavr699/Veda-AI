@@ -4,7 +4,7 @@ import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
-    const { courseId } = params;
+    const { courseId } = await params;
     const { searchParams } = new URL(req.url);
     const chapterId = searchParams.get('chapterId');
 
