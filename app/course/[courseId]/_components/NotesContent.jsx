@@ -16,7 +16,12 @@ function NotesContent({ courseId, chapterId, chapterTitle }) {
     setLoading(true)
     try {
       const result = await axios.get(`/api/course/${courseId}/notes?chapterId=${chapterId}`)
-      setNotes(result.data.notes)
+      let rawNotes = result.data.notes;
+      if (typeof rawNotes === 'string') {
+        // Remove the first markdown heading (e.g. "# Chapter 2: ...") to prevent duplicate titles
+        rawNotes = rawNotes.replace(/(^|\n)\s*#+\s+.*?\r?\n/, '$1');
+      }
+      setNotes(rawNotes);
     } catch (err) {
       console.error(err)
       setNotes(null)
